@@ -25,6 +25,11 @@ struct HomeView: View {
                 .onDelete(perform: deleteTasks)
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink("Categories") {
+                        CategoriesView()
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
