@@ -9,53 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var tasks: [TaskItem]
-
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(tasks) { task in
-                    NavigationLink {
-                        Text("Task at \(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteTasks)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addTask) {
-                        Label("Add Task", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select a task")
+        NavigationStack {
+            HomeView()
         }
     }
-
-    private func addTask() {
-        withAnimation {
-            let newTask = TaskItem(timestamp: Date())
-            modelContext.insert(newTask)
-        }
-    }
-
-    private func deleteTasks(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(tasks[index])
-            }
-        }
-    }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: TaskItem.self, inMemory: true)
 }
