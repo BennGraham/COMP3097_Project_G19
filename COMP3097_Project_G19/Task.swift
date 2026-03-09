@@ -11,6 +11,7 @@ import SwiftData
 @Model
 final class Task {
     var timestamp: Date
+    var task_category: TaskCategory?
     
     init(timestamp: Date) {
         self.timestamp = timestamp
