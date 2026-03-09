@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var tasks: [Task]
+    @Query private var tasks: [TaskItem]
 
     var body: some View {
         NavigationSplitView {
@@ -41,7 +41,7 @@ struct ContentView: View {
 
     private func addTask() {
         withAnimation {
-            let newTask = Task(timestamp: Date())
+            let newTask = TaskItem(timestamp: Date())
             modelContext.insert(newTask)
         }
     }
@@ -57,5 +57,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Task.self, inMemory: true)
+        .modelContainer(for: TaskItem.self, inMemory: true)
 }

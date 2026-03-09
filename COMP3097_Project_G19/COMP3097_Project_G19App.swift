@@ -12,7 +12,7 @@ import SwiftData
 struct COMP3097_Project_G19App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Task.self,
+            TaskItem.self,
             TaskCategory.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

@@ -11,8 +11,8 @@ import SwiftData
 @Model
 final class TaskCategory {
     var name: String
-    @Relationship(deleteRule: .nullify, inverse: \Task.category)
-    var tasks: [Task] = []
+    @Relationship(deleteRule: .nullify, inverse: \TaskItem.task_category)
+    var tasks: [TaskItem] = []
 
     init(name: String) {
         self.name = name

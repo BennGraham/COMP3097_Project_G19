@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Task {
+final class TaskItem {
     var timestamp: Date
     var task_category: TaskCategory?
     
