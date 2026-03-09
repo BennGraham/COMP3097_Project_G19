@@ -10,46 +10,46 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var tasks: [Task]
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(tasks) { task in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text("Task at \(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteTasks)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button(action: addTask) {
+                        Label("Add Task", systemImage: "plus")
                     }
                 }
             }
         } detail: {
-            Text("Select an item")
+            Text("Select a task")
         }
     }
 
-    private func addItem() {
+    private func addTask() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+            let newTask = Task(timestamp: Date())
+            modelContext.insert(newTask)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteTasks(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(tasks[index])
             }
         }
     }
@@ -57,5 +57,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Task.self, inMemory: true)
 }
