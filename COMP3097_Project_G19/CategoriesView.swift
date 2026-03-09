@@ -13,7 +13,11 @@ struct CategoriesView: View {
 
     var body: some View {
         List {
-            Text("List of categories")
+            ForEach(categories) { category in
+                NavigationLink(category.name) {
+                    CategoryDetails(category: category)
+                }
+            }
         }
         .navigationTitle("Categories")
     }
