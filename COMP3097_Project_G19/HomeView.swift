@@ -17,7 +17,7 @@ struct HomeView: View {
             List {
                 ForEach(tasks) { task in
                     NavigationLink {
-                        Text("Task at \(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        TaskDetails(task: task)
                     } label: {
                         Text(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
