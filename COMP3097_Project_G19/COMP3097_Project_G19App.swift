@@ -27,6 +27,13 @@ struct COMP3097_Project_G19App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    let context = sharedModelContainer.mainContext
+                    let existing = try? context.fetch(FetchDescriptor<TaskCategory>())
+                    if existing?.isEmpty ?? true {
+                        context.insert(TaskCategory(name: "Todos"))
+                    }
+                }
         }
         .modelContainer(sharedModelContainer)
     }
