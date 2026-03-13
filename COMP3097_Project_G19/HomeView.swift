@@ -19,7 +19,7 @@ struct HomeView: View {
                     NavigationLink {
                         TaskDetails(task: task)
                     } label: {
-                        Text(task.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(task.title.isEmpty ? "Untitled Task" : task.title)
                     }
                 }
                 .onDelete(perform: deleteTasks)
@@ -61,6 +61,11 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
-        .modelContainer(for: [TaskItem.self, TaskCategory.self], inMemory: true)
+    let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    
+    for task in Task.mockTasks {
+        container.mainContext.insert(TaskItem(timestamp: .now, title: task.title))
+    }
+    
+    return HomeView().modelContainer(container)
 }

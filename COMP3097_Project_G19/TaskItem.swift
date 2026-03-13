@@ -10,10 +10,12 @@ import SwiftData
 
 @Model
 final class TaskItem {
+    var title: String
     var timestamp: Date
     var task_category: TaskCategory?
     
-    init(timestamp: Date) {
+    init(timestamp: Date, title: String = "") {
+        self.title = title
         self.timestamp = timestamp
     }
 }
