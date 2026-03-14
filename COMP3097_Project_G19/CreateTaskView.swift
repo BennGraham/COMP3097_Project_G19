@@ -19,6 +19,10 @@ struct AddTaskView: View {
     @State private var includeDueDate = false
     @State private var selectedCategory: TaskCategory? = nil
 
+    init(preselectedCategory: TaskCategory? = nil) {
+        _selectedCategory = State(initialValue: preselectedCategory)
+    }
+    
     var body: some View {
         NavigationStack {
             Form {

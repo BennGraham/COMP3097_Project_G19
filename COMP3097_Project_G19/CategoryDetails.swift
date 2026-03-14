@@ -10,14 +10,32 @@ import SwiftData
 
 struct CategoryDetails: View {
     let category: TaskCategory
+    @State private var showingAddTask = false
 
     var body: some View {
         List {
-            Text("Tasks in category")
+            ForEach(category.tasks) { task in
+                NavigationLink {
+                    TaskDetails(task: task)
+                } label: {
+                    Text(task.title)
+                }
+            }
         }
         .navigationTitle(category.name)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { showingAddTask = true }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddTask) {
+            AddTaskView(preselectedCategory: category)
+        }
     }
 }
+
 
 #Preview {
     CategoryDetails(category: TaskCategory(name: "Todos"))

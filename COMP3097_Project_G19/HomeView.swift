@@ -37,7 +37,9 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink("Categories") {
-                        CategoriesView()
+                        NavigationStack {
+                            CategoriesView()
+                        }
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -66,17 +68,8 @@ struct HomeView: View {
     }
 }
 
-
 #Preview {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-    
-    for category in TaskCategory.mockCategories {
-        container.mainContext.insert(category)
-    }
-    
-    for task in TaskItem.mockTasks {
-        container.mainContext.insert(TaskItem(title: task.title))
-    }
-    
+    MockData.seed(into: container.mainContext)
     return HomeView().modelContainer(container)
 }
