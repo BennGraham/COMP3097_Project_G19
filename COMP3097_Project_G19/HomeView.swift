@@ -12,24 +12,20 @@ struct HomeView: View {
     @Query private var tasks: [TaskItem]
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             TaskList(tasks: tasks)
-                .navigationTitle("")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink("Categories") {
-                            NavigationStack {
-                                CategoriesView()
-                            }
+                            CategoriesView()
                         }
                     }
                 }
-        } detail: {
-            Text("Select a task")
         }
     }
 }
+
 
 
 #Preview {
