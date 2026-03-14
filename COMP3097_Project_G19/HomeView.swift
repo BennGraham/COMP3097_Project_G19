@@ -70,7 +70,11 @@ struct HomeView: View {
 #Preview {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
-    for task in Task.mockTasks {
+    for category in TaskCategory.mockCategories {
+        container.mainContext.insert(category)
+    }
+    
+    for task in TaskItem.mockTasks {
         container.mainContext.insert(TaskItem(title: task.title))
     }
     

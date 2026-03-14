@@ -14,13 +14,16 @@ final class TaskItem {
     var taskDescription: String
     var dueDate: Date?
     var createdAt: Date
+    var completedAt: Date?
     var task_category: TaskCategory?
 
-    init(title: String, taskDescription: String = "", dueDate: Date? = nil, task_category: TaskCategory? = nil) {
+    init(title: String, taskDescription: String = "", dueDate: Date? = nil, completedAt: Date? = nil, task_category: TaskCategory? = nil) {
         self.title = title
         self.taskDescription = taskDescription
         self.dueDate = dueDate
         self.task_category = task_category
         self.createdAt = Date()
+        self.completedAt = completedAt
     }
+
 }
