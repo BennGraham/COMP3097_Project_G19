@@ -94,7 +94,7 @@ struct TaskList: View {
             }
         }
         .sheet(isPresented: $showingAddTask) {
-            AddTaskView(preselectedCategory: preselectedCategory)
+            CreateTaskView(preselectedCategory: preselectedCategory)
         }
     }
 

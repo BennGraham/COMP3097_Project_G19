@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct CategoriesView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query private var categories: [TaskCategory]
     @State private var searchQuery = ""
+    @State private var showingAddCategory = false
 
     var filteredCategories: [TaskCategory] {
         if searchQuery.isEmpty {
@@ -28,7 +30,7 @@ struct CategoriesView: View {
                     HStack(spacing: 16) {
                         Image(systemName: category.icon.rawValue)
                             .font(.body)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                             .frame(width: 32, height: 32)
                             .background(Color(.systemGray5))
                             .clipShape(Circle())
@@ -39,13 +41,40 @@ struct CategoriesView: View {
                     .padding(.vertical, 6)
                 }
             }
+            .onDelete(perform: deleteCategories)
+            
+            if filteredCategories.isEmpty {
+                ContentUnavailableView(
+                    "No Categories",
+                    systemImage: "folder",
+                    description: Text("Add a category to get started")
+                )
+            }
         }
         .navigationTitle("Categories")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { showingAddCategory = true }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddCategory) {
+            CreateCategoryView()
+        }
 
         if categories.count > 7 {
             list.searchable(text: $searchQuery, prompt: "Search categories")
         } else {
             list
+        }
+    }
+    
+    private func deleteCategories(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(filteredCategories[index])
+            }
         }
     }
 }

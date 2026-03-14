@@ -31,5 +31,20 @@ final class TaskCategory {
         case category_home = "house.fill"
         case category_fitness = "figure.run"
         case category_other = "folder.fill"
+        
+        var name: String {
+            switch self {
+            case .category_work: return "Work"
+            case .category_personal: return "Personal"
+            case .category_shopping: return "Shopping"
+            case .category_health: return "Health"
+            case .category_school: return "School"
+            case .category_finance: return "Finance"
+            case .category_travel: return "Travel"
+            case .category_home: return "Home"
+            case .category_fitness: return "Fitness"
+            case .category_other: return "Other"
+            }
+        }
     }
 }

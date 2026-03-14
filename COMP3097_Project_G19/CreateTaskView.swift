@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct AddTaskView: View {
+struct CreateTaskView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query private var categories: [TaskCategory]
