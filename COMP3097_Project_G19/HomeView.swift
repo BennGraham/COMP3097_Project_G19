@@ -35,5 +35,7 @@ struct HomeView: View {
 #Preview {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     MockData.seed(into: container.mainContext)
-    return HomeView().modelContainer(container)
+    return HomeView()
+            .modelContainer(container)
+            .preferredColorScheme(.dark)
 }

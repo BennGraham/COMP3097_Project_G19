@@ -15,7 +15,7 @@ struct TaskListItem: View {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: task.task_category?.icon.rawValue ?? "circle")
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .frame(width: 32, height: 32)
                     .background(Color(.systemGray5))
                     .clipShape(Circle())
