@@ -12,19 +12,28 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskItem]
     @State private var showingAddTask = false
+    @State private var searchQuery = ""
+
+    var filteredList: [TaskItem] {
+        if searchQuery.isEmpty {
+            return tasks
+        }
+        return tasks.filter { $0.title.contains(searchQuery) }
+    }
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(tasks) { task in
+                ForEach(filteredList) { task in
                     NavigationLink {
                         TaskDetails(task: task)
                     } label: {
-                        Text(task.title.isEmpty ? "Untitled Task" : task.title)
+                        Text(task.title)
                     }
                 }
                 .onDelete(perform: deleteTasks)
             }
+            .searchable(text: $searchQuery, prompt: "Search tasks")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink("Categories") {
@@ -56,6 +65,7 @@ struct HomeView: View {
         }
     }
 }
+
 
 #Preview {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
