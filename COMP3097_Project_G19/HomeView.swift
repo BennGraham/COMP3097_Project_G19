@@ -28,8 +28,19 @@ struct HomeView: View {
                     NavigationLink {
                         TaskDetails(task: task)
                     } label: {
-                        Text(task.title)
+                        TaskListItem(task: task)
                     }
+                    .swipeActions(edge: .leading) {
+                          Button {
+                              task.completedAt = task.completedAt == nil ? Date() : nil
+                          } label: {
+                              Label(
+                                  task.completedAt == nil ? "Complete" : "Undo",
+                                  systemImage: task.completedAt == nil ? "checkmark.circle" : "xmark.circle"
+                              )
+                          }
+                          .tint(.green)
+                      }
                 }
                 .onDelete(perform: deleteTasks)
             }
@@ -41,9 +52,6 @@ struct HomeView: View {
                             CategoriesView()
                         }
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingAddTask = true }) {

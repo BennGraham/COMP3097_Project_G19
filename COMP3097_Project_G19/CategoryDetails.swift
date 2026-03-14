@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct CategoryDetails: View {
+    @Environment(\.modelContext) private var modelContext
     let category: TaskCategory
     @State private var showingAddTask = false
 
@@ -18,9 +19,21 @@ struct CategoryDetails: View {
                 NavigationLink {
                     TaskDetails(task: task)
                 } label: {
-                    Text(task.title)
+                    TaskListItem(task: task)
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        task.completedAt = task.completedAt == nil ? Date() : nil
+                    } label: {
+                        Label(
+                            task.completedAt == nil ? "Complete" : "Undo",
+                            systemImage: task.completedAt == nil ? "checkmark.circle" : "xmark.circle"
+                        )
+                    }
+                    .tint(.green)
                 }
             }
+            .onDelete(perform: deleteTasks)
         }
         .navigationTitle(category.name)
         .toolbar {
@@ -32,6 +45,14 @@ struct CategoryDetails: View {
         }
         .sheet(isPresented: $showingAddTask) {
             AddTaskView(preselectedCategory: category)
+        }
+    }
+    
+    private func deleteTasks(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(category.tasks[index])
+            }
         }
     }
 }

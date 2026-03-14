@@ -27,11 +27,11 @@ struct CategoriesView: View {
                 } label: {
                     HStack(spacing: 16) {
                         Image(systemName: category.icon.rawValue)
-                            .font(.title2)
-                            .foregroundColor(.accentColor)
-                            .frame(width: 40, height: 40)
-                            .background(Color.accentColor.opacity(0.15))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .font(.body)
+                            .foregroundColor(.black)
+                            .frame(width: 32, height: 32)
+                            .background(Color(.systemGray5))
+                            .clipShape(Circle())
 
                         Text(category.name)
                             .font(.body)
