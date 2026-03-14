@@ -94,7 +94,8 @@ struct TaskList: View {
             }
         }
         .sheet(isPresented: $showingAddTask) {
-            CreateTaskView(preselectedCategory: preselectedCategory)
+            CreateTaskView()
+                .modelContainer(modelContext.container)
         }
     }
 
