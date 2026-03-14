@@ -18,6 +18,6 @@ struct TaskDetails: View {
 }
 
 #Preview {
-    TaskDetails(task: TaskItem(timestamp: Date()))
+    TaskDetails(task: TaskItem(title: "Buy groceries"))
         .modelContainer(for: [TaskItem.self, TaskCategory.self], inMemory: true)
 }

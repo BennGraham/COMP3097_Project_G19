@@ -11,11 +11,16 @@ import SwiftData
 @Model
 final class TaskItem {
     var title: String
-    var timestamp: Date
+    var taskDescription: String
+    var dueDate: Date?
+    var createdAt: Date
     var task_category: TaskCategory?
-    
-    init(timestamp: Date, title: String = "") {
+
+    init(title: String, taskDescription: String = "", dueDate: Date? = nil, task_category: TaskCategory? = nil) {
         self.title = title
-        self.timestamp = timestamp
+        self.taskDescription = taskDescription
+        self.dueDate = dueDate
+        self.task_category = task_category
+        self.createdAt = Date()
     }
 }

@@ -11,6 +11,7 @@ import SwiftData
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskItem]
+    @State private var showingAddTask = false
 
     var body: some View {
         NavigationSplitView {
@@ -33,21 +34,17 @@ struct HomeView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
-                    Button(action: addTask) {
-                        Label("Add Task", systemImage: "plus")
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showingAddTask = true }) {
+                        Image(systemName: "plus")
                     }
                 }
             }
         } detail: {
             Text("Select a task")
         }
-    }
-
-    private func addTask() {
-        withAnimation {
-            let newTask = TaskItem(timestamp: Date())
-            modelContext.insert(newTask)
+        .sheet(isPresented: $showingAddTask) {
+            AddTaskView()
         }
     }
 
@@ -64,7 +61,7 @@ struct HomeView: View {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
     for task in Task.mockTasks {
-        container.mainContext.insert(TaskItem(timestamp: .now, title: task.title))
+        container.mainContext.insert(TaskItem(title: task.title))
     }
     
     return HomeView().modelContainer(container)
