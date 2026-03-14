@@ -27,6 +27,22 @@ struct TaskListItem: View {
                         .background(Color(UIColor.systemBackground))
                         .clipShape(Circle())
                         .offset(x: 6, y: -6)
+                } else if let dueDate = task.dueDate {
+                    if dueDate < Date() {
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .font(.body)
+                            .foregroundColor(.red)
+                            .background(Color(UIColor.systemBackground))
+                            .clipShape(Circle())
+                            .offset(x: 6, y: -6)
+                    } else if dueDate < Date().addingTimeInterval(2 * 24 * 60 * 60) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.body)
+                            .foregroundColor(.yellow)
+                            .background(Color(UIColor.systemBackground))
+                            .clipShape(Circle())
+                            .offset(x: 6, y: -6)
+                    }
                 }
             }
             Text(task.title)

@@ -84,7 +84,7 @@ struct MockData {
             TaskItem(
                 title: "Task 10",
                 taskDescription: "Task 10 Description",
-                dueDate: date("2026-03-25"),
+                dueDate: date("2026-03-05"),
                 task_category: school
             ),
             TaskItem(
@@ -108,7 +108,7 @@ struct MockData {
             TaskItem(
                 title: "Task 14",
                 taskDescription: "Task 14 Description",
-                dueDate: date("2026-03-20"),
+                dueDate: date("2026-03-02"),
                 task_category: travel
             ),
             TaskItem(
@@ -120,7 +120,7 @@ struct MockData {
             TaskItem(
                 title: "Task 16",
                 taskDescription: "Task 16 Description",
-                dueDate: date("2026-03-17"),
+                dueDate: date("2026-03-07"),
                 task_category: home
             ),
             TaskItem(

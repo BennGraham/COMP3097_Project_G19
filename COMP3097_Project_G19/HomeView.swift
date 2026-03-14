@@ -9,72 +9,28 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskItem]
-    @State private var showingAddTask = false
-    @State private var searchQuery = ""
-
-    var filteredList: [TaskItem] {
-        if searchQuery.isEmpty {
-            return tasks
-        }
-        return tasks.filter { $0.title.contains(searchQuery) }
-    }
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(filteredList) { task in
-                    NavigationLink {
-                        TaskDetails(task: task)
-                    } label: {
-                        TaskListItem(task: task)
-                    }
-                    .swipeActions(edge: .leading) {
-                          Button {
-                              task.completedAt = task.completedAt == nil ? Date() : nil
-                          } label: {
-                              Label(
-                                  task.completedAt == nil ? "Complete" : "Undo",
-                                  systemImage: task.completedAt == nil ? "checkmark.circle" : "xmark.circle"
-                              )
-                          }
-                          .tint(.green)
-                      }
-                }
-                .onDelete(perform: deleteTasks)
-            }
-            .searchable(text: $searchQuery, prompt: "Search tasks")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink("Categories") {
-                        NavigationStack {
-                            CategoriesView()
+            TaskList(tasks: tasks)
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink("Categories") {
+                            NavigationStack {
+                                CategoriesView()
+                            }
                         }
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showingAddTask = true }) {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
         } detail: {
             Text("Select a task")
         }
-        .sheet(isPresented: $showingAddTask) {
-            AddTaskView()
-        }
-    }
-
-    private func deleteTasks(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(tasks[index])
-            }
-        }
     }
 }
+
 
 #Preview {
     let container = try! ModelContainer(for: Schema([TaskItem.self, TaskCategory.self]), configurations: ModelConfiguration(isStoredInMemoryOnly: true))
