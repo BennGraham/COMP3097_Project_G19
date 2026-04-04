@@ -17,7 +17,14 @@ struct CreateTaskView: View {
     @State private var taskDescription = ""
     @State private var dueDate = Date()
     @State private var includeDueDate = false
-    @State private var selectedCategory: TaskCategory? = nil
+    @State private var selectedCategory: TaskCategory?
+    
+    var preselectedCategory: TaskCategory?
+
+    init(preselectedCategory: TaskCategory? = nil) {
+      self.preselectedCategory = preselectedCategory
+      self._selectedCategory = State(initialValue: preselectedCategory)
+    }
     
     var body: some View {
         NavigationStack {
@@ -60,6 +67,7 @@ struct CreateTaskView: View {
                             task_category: selectedCategory
                         )
                         modelContext.insert(task)
+                        selectedCategory?.tasks.append(task)
                         dismiss()
                     }
                     .disabled(title.isEmpty)
