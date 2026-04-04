@@ -31,10 +31,7 @@ struct COMP3097_Project_G19App: App {
                     let context = sharedModelContainer.mainContext
                     let existing = try? context.fetch(FetchDescriptor<TaskCategory>())
                     if existing?.isEmpty ?? true {
-                        context.insert(TaskCategory(name: "Work", icon: .category_work))
-                        context.insert(TaskCategory(name: "Personal", icon: .category_personal))
-                        context.insert(TaskCategory(name: "Shopping", icon: .category_shopping))
-                        context.insert(TaskCategory(name: "Health", icon: .category_health))
+                        MockData.seed(into: context)
                     }
                 }
         }
