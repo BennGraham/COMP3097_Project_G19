@@ -87,7 +87,7 @@ struct TaskList: View {
         }
         .searchable(text: $searchQuery, prompt: "Search tasks")
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button(action: { showingAddTask = true }) {
                     Image(systemName: "plus")
                 }

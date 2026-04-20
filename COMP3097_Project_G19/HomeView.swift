@@ -14,9 +14,9 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             TaskList(tasks: tasks)
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(Date.now.formatted(.dateTime.weekday(.wide).month(.wide).day()))
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .bottomBar) {
                         NavigationLink("Categories") {
                             CategoriesView()
                         }
