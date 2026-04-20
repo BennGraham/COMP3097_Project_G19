@@ -2,7 +2,7 @@
 //  CategoryDetails.swift
 //  COMP3097_Project_G19
 //
-//  Created by Benn Graham on 2026-03-09.
+//  Created by Benn Graham | 101412278 on 2026-03-09.
 //
 
 import SwiftUI
